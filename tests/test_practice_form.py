@@ -1,12 +1,12 @@
 from model.pages import resource
-from model.pages.registration_page import StudentRegistrationForm
+from model.pages.registration_page import StudentRegistrationPage
 
 
-def test__student_registration_form():
-    registration_form = StudentRegistrationForm()
-    registration_form.open()
+def test_student_registration_form():
+    registration_page = StudentRegistrationPage()
+    registration_page.open()
 
-    (registration_form.fill_first_name("Stefan")
+    (registration_page.fill_first_name("Stefan")
      .fill_last_name("Burnett")
      .fill_email("mcride_dg@gmail.com")
      .select_gender("Male")
@@ -19,7 +19,7 @@ def test__student_registration_form():
      .select_state_and_city("NCR", "Delhi")
      .submit_form())
 
-    registration_form.should_have_registered(full_name="Stefan Burnett",
+    registration_page.should_have_registered(full_name="Stefan Burnett",
                                              email="mcride_dg@gmail.com",
                                              gender="Male",
                                              mobile_number="7148088000",

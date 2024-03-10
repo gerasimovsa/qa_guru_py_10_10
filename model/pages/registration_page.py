@@ -1,7 +1,7 @@
 from selene import browser, be, have, by, command
 
 
-class StudentRegistrationForm:
+class StudentRegistrationPage:
     def __init__(self):
         self.submit_button = browser.element("#submit")
 
