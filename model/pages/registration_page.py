@@ -1,5 +1,7 @@
 from selene import browser, be, have, by, command
 
+from model.pages import resource
+
 
 class StudentRegistrationPage:
     def __init__(self):
@@ -52,7 +54,7 @@ class StudentRegistrationPage:
         return self
 
     def select_picture(self, path: str):
-        browser.element("#uploadPicture").send_keys(path)
+        browser.element("#uploadPicture").send_keys(resource.path(path))
         return self
 
     def fill_current_address(self, value: str):

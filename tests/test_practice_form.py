@@ -1,4 +1,3 @@
-from model.pages import resource
 from model.pages.registration_page import StudentRegistrationPage
 
 
@@ -14,7 +13,7 @@ def test_student_registration_form():
      .fill_date_of_birth("1978", "May", "10")
      .fill_subjects("Chemistry")
      .select_hobbies("Music")
-     .select_picture(resource.path("mc_ride.png"))
+     .select_picture("mc_ride.png")
      .fill_current_address("888 East Las Olas Blvd, Suite 710")
      .select_state_and_city("NCR", "Delhi")
      .submit_form())
