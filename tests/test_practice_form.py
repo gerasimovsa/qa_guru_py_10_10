@@ -2,7 +2,7 @@ from demoqa_test.data import users
 from demoqa_test.model.pages.registration_page import StudentRegistrationPage
 
 
-def test__student_registration_form():
+def test_student_registration_form():
     registration_page = StudentRegistrationPage()
     student = users.student
 
