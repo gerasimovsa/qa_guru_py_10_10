@@ -1,61 +1,31 @@
-from selene import browser, be, have, by, command
+from model.pages import resource
+from model.pages.registration_page import StudentRegistrationForm
 
 
-def test_submit_form():
-    browser.open("/automation-practice-form")
-    browser.element("#firstName").should(be.blank).type("Stefan")
-    browser.element("#lastName").should(be.blank).type("Burnett")
-    browser.element("#userEmail").should(be.blank).type("mcride_dg@gmail.com")
-    browser.element("label[for='gender-radio-1']").click()
-    browser.element("#userNumber").should(be.blank).type("7148088000")
-    browser.element("#dateOfBirthInput").click()
-    browser.element("[class='react-datepicker__year-select']").click()
-    browser.element(by.text("1978")).click()
-    browser.element("[class='react-datepicker__month-select']").click()
-    browser.element(by.text("May")).click()
-    browser.element("[class='react-datepicker__year-select']").click()
-    browser.element("[class = 'react-datepicker__day react-datepicker__day--010']").click()
-    browser.element("#subjectsInput").should(be.blank).type("Chemistry")
-    browser.element("#react-select-2-option-0").click()
-    browser.element("label[for='hobbies-checkbox-3']").click()
-    browser.element("#uploadPicture").send_keys(__file__.replace('tests\\test_practice_form.py', 'data\\mc_ride.png'))
-    browser.element("#currentAddress").should(be.blank).type("888 East Las Olas Blvd, Suite 710")
-    browser.element("#submit").perform(command.js.scroll_into_view)
-    browser.element("#state").click()
-    browser.element(by.text("NCR")).click()
-    browser.element("#city").click()
-    browser.element("div[id='react-select-4-option-0']").click()
-    browser.element("#submit").click()
+def test__student_registration_form():
+    registration_form = StudentRegistrationForm()
+    registration_form.open()
 
-    browser.element(".table").should(be.present)
-    browser.all('tr td:first-child + td').should(have.exact_texts(
-        "Stefan Burnett",
-        "mcride_dg@gmail.com",
-        "Male",
-        "7148088000",
-        "10 May,1978",
-        "Chemistry",
-        "Music",
-        "mc_ride.png",
-        "888 East Las Olas Blvd, Suite 710",
-        "NCR Delhi"))
+    (registration_form.fill_first_name("Stefan")
+     .fill_last_name("Burnett")
+     .fill_email("mcride_dg@gmail.com")
+     .select_gender("Male")
+     .fill_mobile_number("7148088000")
+     .fill_date_of_birth("1978", "May", "10")
+     .fill_subjects("Chemistry")
+     .select_hobbies("Music")
+     .select_picture(resource.path("mc_ride.png"))
+     .fill_current_address("888 East Las Olas Blvd, Suite 710")
+     .select_state_and_city("NCR", "Delhi")
+     .submit_form())
 
-    browser.element("#closeLargeModal").click()
-    browser.element(".table").should(be.not_.present)
-
-
-# registration_page.open()
-# registration_page.fill_first_name('Yasha')
-# registration_page.fill_last_name('Kramarenko')
-# ...
-# registration_page.submit()
-# registration_page.should_have_registered(yasha)
-# ... или использовав идеи шаблона Fluent PageObject:
-# registration_page.open()
-# registration_page \
-#     .fill_first_name('Yasha') \
-#     .fill_last_name('Kramarenko') \
-#     .fill_email('yashaka@gmail.com') \
-#     ... \
-#     .submit()
-# registration_page.should_have_registered('Yasha Kramarenko', 'yashaka@gmail.com', ...)
+    registration_form.should_have_registered(full_name="Stefan Burnett",
+                                             email="mcride_dg@gmail.com",
+                                             gender="Male",
+                                             mobile_number="7148088000",
+                                             birthday="10 May,1978",
+                                             subjects="Chemistry",
+                                             hobbies="Music",
+                                             picture="mc_ride.png",
+                                             address="888 East Las Olas Blvd, Suite 710",
+                                             state_city="NCR Delhi")
