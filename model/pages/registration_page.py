@@ -39,7 +39,6 @@ class StudentRegistrationForm:
         browser.element(by.text(year)).click()
         browser.element("[class='react-datepicker__month-select']").click()
         browser.element(by.text(month)).click()
-        browser.element("[class='react-datepicker__year-select']").click()
         browser.element(f"[class = 'react-datepicker__day react-datepicker__day--0{day}']").click()
         return self
 
