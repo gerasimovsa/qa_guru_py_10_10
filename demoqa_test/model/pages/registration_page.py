@@ -1,11 +1,10 @@
 from selene import browser, be, have, by, command
-from data.users import User
+from demoqa_test.data.users import User
 from pathlib import Path
 
 
 class StudentRegistrationPage:
     def __init__(self):
-        self.day_of_birth = None
         self.first_name = browser.element("#firstName")
         self.last_name = browser.element("#lastName")
         self.email = browser.element("#userEmail")
@@ -46,7 +45,6 @@ class StudentRegistrationPage:
         browser.element(by.text(user.date_of_birth.strftime('%Y'))).click()
         self.date_picker_month.click()
         browser.element(by.text(user.date_of_birth.strftime('%B'))).click()
-        self.day_of_birth = user.date_of_birth.day
         self.date_picker_day(user.date_of_birth.day).click()
         self.subjects.should(be.blank).type(user.subjects)
         self.subjects_list_option.click()
